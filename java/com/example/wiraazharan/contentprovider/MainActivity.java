@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.database.Cursor;
+import android.widget.Toast;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -17,7 +19,7 @@ public class MainActivity extends ActionBarActivity {
     DbHelper helper ;
 
     EditText name,comments,email;
-    Button submit;
+    Button submit,query;
     String nm,cm,em;
 
     @Override
@@ -32,6 +34,7 @@ public class MainActivity extends ActionBarActivity {
         comments = (EditText)findViewById(R.id.commentset);
         email = (EditText)findViewById(R.id.emailet);
         submit = (Button)findViewById(R.id.submit);
+        query = (Button)findViewById(R.id.query);
 
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +50,23 @@ public class MainActivity extends ActionBarActivity {
                 cv.put(DbHelper.EMAIL,em);
 
                 db.insert(DbHelper.TABLE_NAME,null,cv);
+            }
+        });
+
+
+        query.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String[] name_columns = {DbHelper.NAME};
+                Cursor cursor = db.query(DbHelper.TABLE_NAME,name_columns,null,null,null,null,null);
+                cursor.moveToFirst();
+                while(cursor.moveToNext())
+                {
+                    String name = cursor.getString(cursor.getColumnIndex(DbHelper.NAME));
+
+                    Toast.makeText(getApplicationContext(),name,Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

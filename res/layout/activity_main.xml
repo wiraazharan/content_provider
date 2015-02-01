@@ -58,4 +58,13 @@
         android:id="@+id/submit"
         android:layout_below="@+id/emailet"
          />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="QUERY"
+        android:id="@+id/query"
+        android:layout_below="@+id/submit"
+        android:layout_alignRight="@+id/submit"
+        android:layout_alignEnd="@+id/submit" />
 </RelativeLayout>
